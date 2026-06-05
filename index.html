@@ -5,11 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Expandry — Outbound Systems For Predictable Growth</title>
 <meta name="description" content="Expandry builds predictable outbound systems using LinkedIn and Email outreach for Coaches, Consultants, B2B, SaaS, and Marketing Agencies. 150+ campaigns, $5M+ pipeline generated.">
-<meta name="keywords" content="outbound marketing, cold email, LinkedIn outreach, lead generation, B2B sales, appointment setting, Expandry">
+<meta name="keywords" content="outbound marketing, cold email, LinkedIn outreach, lead generation, B2B sales, appointment setting, Expandry, Awadh Saleh">
 <meta property="og:title" content="Expandry — Outbound Systems For Predictable Growth">
-<meta property="og:description" content="We build cold email &amp; LinkedIn systems that fill your calendar with qualified meetings — predictably, every month.">
+<meta property="og:description" content="We build cold email and LinkedIn systems that fill your calendar with qualified meetings — predictably, every month.">
 <meta property="og:type" content="website">
 <link rel="canonical" href="https://expandry.com">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230B1D3A'/><text x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' fill='%2322C55E' font-family='sans-serif' font-weight='900' font-size='20'>E</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
@@ -33,11 +34,22 @@
 --font-body:'Outfit',-apple-system,sans-serif;
 --section-pad:clamp(80px,10vw,140px);
 --container:1200px;
---radius-sm:8px;--radius-md:14px;--radius-lg:20px;--radius-xl:28px;
+--r-sm:8px;--r-md:14px;--r-lg:20px;--r-xl:28px;
 }
 html{scroll-behavior:smooth;font-size:16px;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 body{font-family:var(--font-body);background:var(--bg);color:var(--text-body);overflow-x:hidden;line-height:1.65}
 ::selection{background:rgba(22,134,74,0.15);color:var(--navy)}
+
+/* SCROLL PROGRESS */
+.scroll-progress{position:fixed;top:0;left:0;height:3px;background:var(--gradient-green);z-index:10001;transform-origin:left;transform:scaleX(0);will-change:transform}
+
+/* CURSOR */
+.cursor-glow{position:fixed;width:320px;height:320px;pointer-events:none;z-index:9998;opacity:0;transition:opacity .5s;background:radial-gradient(circle,rgba(22,134,74,.06) 0%,transparent 70%);transform:translate(-50%,-50%);will-change:left,top}
+.cursor-glow.on{opacity:1}
+.cursor-dot{position:fixed;width:6px;height:6px;background:var(--green-accent);border-radius:50%;pointer-events:none;z-index:9999;opacity:0;transition:opacity .3s;transform:translate(-50%,-50%);mix-blend-mode:multiply}
+.cursor-dot.on{opacity:.7}
+
+/* LAYOUT */
 .container{max-width:var(--container);margin:0 auto;padding:0 clamp(16px,4vw,40px)}
 .section{padding:var(--section-pad) 0;position:relative}
 .section-label{font-family:var(--font-body);font-size:.7rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--green);margin-bottom:16px;display:inline-flex;align-items:center;gap:10px}
@@ -48,101 +60,169 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text-body);ov
 
 /* BUTTONS */
 .btn-primary{display:inline-flex;align-items:center;gap:10px;padding:16px 36px;background:var(--gradient-brand);color:#fff;font-family:var(--font-body);font-weight:600;font-size:.95rem;border:none;border-radius:100px;cursor:pointer;text-decoration:none;transition:all .4s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden}
-.btn-primary::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.12) 0%,transparent 60%);opacity:0;transition:opacity .4s}
-.btn-primary:hover::before{opacity:1}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:var(--shadow-green)}
-.btn-primary .arrow{transition:transform .3s;font-size:1.1rem}
-.btn-primary:hover .arrow{transform:translateX(4px)}
-.btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:16px 32px;background:transparent;color:var(--navy);font-family:var(--font-body);font-weight:600;font-size:.95rem;border:1.5px solid var(--border-hover);border-radius:100px;cursor:pointer;text-decoration:none;transition:all .3s}
+.btn-primary::before{content:'';position:absolute;top:50%;left:50%;width:0;height:0;background:rgba(255,255,255,.15);border-radius:50%;transform:translate(-50%,-50%);transition:width .6s ease,height .6s ease}
+.btn-primary:hover::before{width:400px;height:400px}
+.btn-primary:hover{box-shadow:var(--shadow-green)}
+.btn-primary .arrow{transition:transform .3s cubic-bezier(.16,1,.3,1);font-size:1.1rem}
+.btn-primary:hover .arrow{transform:translateX(6px)}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:16px 32px;background:transparent;color:var(--navy);font-family:var(--font-body);font-weight:600;font-size:.95rem;border:1.5px solid var(--border-hover);border-radius:100px;cursor:pointer;text-decoration:none;transition:all .4s cubic-bezier(.16,1,.3,1)}
 .btn-ghost:hover{border-color:var(--green);color:var(--green-deep);background:var(--green-glow)}
 
-/* 3D EMOJI ICONS */
-.icon-3d{width:56px;height:56px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:1.6rem;position:relative;background:var(--green-glow);border:1px solid rgba(22,134,74,.12);box-shadow:0 4px 12px rgba(22,134,74,.08),inset 0 1px 2px rgba(255,255,255,.5);transition:transform .3s,box-shadow .3s}
-.icon-3d:hover{transform:translateY(-2px) scale(1.05);box-shadow:0 8px 20px rgba(22,134,74,.15),inset 0 1px 2px rgba(255,255,255,.5)}
-.icon-3d-red{background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.1);box-shadow:0 4px 12px rgba(239,68,68,.06),inset 0 1px 2px rgba(255,255,255,.5)}
-.icon-3d svg{width:28px;height:28px}
+/* 3D ICON BOX */
+.icon-3d{width:56px;height:56px;border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:1.6rem;background:var(--green-glow);border:1px solid rgba(22,134,74,.12);box-shadow:0 6px 16px rgba(22,134,74,.1),inset 0 2px 4px rgba(255,255,255,.7),inset 0 -2px 4px rgba(0,0,0,.03);transition:all .4s cubic-bezier(.16,1,.3,1)}
+.icon-3d:hover{transform:translateY(-4px) rotateX(8deg);box-shadow:0 12px 28px rgba(22,134,74,.18),inset 0 2px 4px rgba(255,255,255,.7)}
 
-/* NAVBAR */
+/* ===== LOGO (CSS-only) ===== */
+.logo-mark{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-icon{width:38px;height:34px;background:var(--gradient-brand);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--font-body);font-weight:900;font-size:1.05rem;letter-spacing:1px;transition:transform .3s;box-shadow:0 2px 8px rgba(11,29,58,.15)}
+.logo-mark:hover .logo-icon{transform:rotate(-5deg) scale(1.05)}
+.logo-text{font-family:var(--font-body);font-weight:800;font-size:1.15rem;color:var(--navy);letter-spacing:2.5px;text-transform:uppercase}
+.footer .logo-text{color:#fff}
+.footer .logo-icon{box-shadow:0 2px 8px rgba(0,0,0,.3)}
+
+/* ===== NAVBAR ===== */
 .navbar{position:fixed;top:0;left:0;right:0;z-index:1000;padding:18px 0;transition:all .5s cubic-bezier(.16,1,.3,1)}
-.navbar.scrolled{padding:12px 0;background:rgba(250,250,248,.85);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border-bottom:1px solid var(--border)}
+.navbar.scrolled{padding:12px 0;background:rgba(250,250,248,.88);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border-bottom:1px solid var(--border);box-shadow:var(--shadow-sm)}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;max-width:var(--container);margin:0 auto;padding:0 clamp(16px,4vw,40px)}
-.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-.nav-logo img{height:34px}
-.nav-logo-text{font-family:var(--font-body);font-weight:800;font-size:1.2rem;color:var(--navy);letter-spacing:2px;text-transform:uppercase}
 .nav-links{display:flex;align-items:center;gap:36px;list-style:none}
-.nav-links a{color:var(--text-secondary);text-decoration:none;font-size:.88rem;font-weight:500;transition:color .3s}
+.nav-links a{color:var(--text-secondary);text-decoration:none;font-size:.88rem;font-weight:500;transition:all .3s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--gradient-green);border-radius:2px;transition:width .4s cubic-bezier(.16,1,.3,1)}
 .nav-links a:hover{color:var(--text-hero)}
-.nav-cta{padding:10px 26px!important;font-size:.85rem!important;background:var(--navy)!important;color:#fff!important;border-radius:100px;font-weight:600!important;transition:all .3s!important;text-decoration:none}
-.nav-cta:hover{background:var(--green-deep)!important;box-shadow:var(--shadow-green)!important}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.nav-links a.active{color:var(--text-hero)}
+.nav-cta{padding:10px 26px!important;font-size:.85rem!important;background:var(--navy)!important;color:#fff!important;border-radius:100px;font-weight:600!important;transition:all .3s!important;text-decoration:none;position:relative;overflow:hidden}
+.nav-cta:hover{background:var(--green-deep)!important;box-shadow:var(--shadow-green)!important;transform:scale(1.05)}
+.nav-cta::after{display:none!important}
 .nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;z-index:1001}
-.nav-toggle span{width:22px;height:1.5px;background:var(--navy);transition:all .3s;display:block}
+.nav-toggle span{width:22px;height:1.5px;background:var(--navy);transition:all .4s cubic-bezier(.16,1,.3,1);display:block;transform-origin:center}
 .nav-toggle.active span:nth-child(1){transform:rotate(45deg) translate(4px,4px)}
-.nav-toggle.active span:nth-child(2){opacity:0}
+.nav-toggle.active span:nth-child(2){opacity:0;transform:scaleX(0)}
 .nav-toggle.active span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px)}
 
-/* HERO */
+/* ===== HERO ===== */
 .hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding-top:120px;padding-bottom:60px}
-.hero-bg-shapes{position:absolute;inset:0;z-index:0;overflow:hidden}
-.hero-shape{position:absolute;border-radius:50%}
+.hero-bg{position:absolute;inset:0;z-index:0;overflow:hidden}
+.hero-shape{position:absolute;border-radius:50%;will-change:transform}
 .hero-shape-1{width:700px;height:700px;background:radial-gradient(circle,rgba(22,134,74,.06),transparent 70%);top:-15%;right:-10%;animation:gentleFloat 12s ease-in-out infinite}
 .hero-shape-2{width:500px;height:500px;background:radial-gradient(circle,rgba(11,29,58,.04),transparent 70%);bottom:-20%;left:-5%;animation:gentleFloat 15s ease-in-out infinite reverse}
 .hero-shape-3{width:300px;height:300px;background:radial-gradient(circle,rgba(29,168,92,.05),transparent 70%);top:30%;left:45%;animation:gentleFloat 10s ease-in-out infinite 2s}
 .hero-dots{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(11,29,58,.04) 1px,transparent 1px);background-size:32px 32px;mask-image:radial-gradient(ellipse 60% 50% at 70% 40%,black 20%,transparent 80%);-webkit-mask-image:radial-gradient(ellipse 60% 50% at 70% 40%,black 20%,transparent 80%)}
+.hero-line{position:absolute;top:50%;left:0;width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(22,134,74,.12),transparent);animation:lineSweep 5s ease-in-out infinite;z-index:1}
 .hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;position:relative;z-index:2}
 .hero-content{max-width:600px}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;background:var(--bg-card);border:1px solid var(--border);border-radius:100px;font-size:.78rem;font-weight:600;color:var(--green-deep);margin-bottom:32px;box-shadow:var(--shadow-sm);animation:fadeInUp .7s ease forwards}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;background:var(--bg-card);border:1px solid var(--border);border-radius:100px;font-size:.78rem;font-weight:600;color:var(--green-deep);margin-bottom:32px;box-shadow:var(--shadow-sm);opacity:0;animation:fadeInDown .8s cubic-bezier(.16,1,.3,1) .1s forwards}
 .hero-badge .dot{width:7px;height:7px;background:var(--green-accent);border-radius:50%;animation:pulse 2.5s ease-in-out infinite}
-.hero h1{font-family:var(--font-display);font-size:clamp(2.6rem,5.5vw,4.5rem);font-weight:400;line-height:1.05;color:var(--text-hero);margin-bottom:24px;letter-spacing:-1px;animation:fadeInUp .7s ease .1s both;text-transform:capitalize}
-.hero h1 em{font-style:italic;color:var(--green-deep);position:relative}
-.hero h1 em::after{content:'';position:absolute;bottom:4px;left:0;right:0;height:3px;background:var(--gradient-green);border-radius:3px;opacity:.3}
-.hero-sub{font-size:clamp(1rem,1.6vw,1.1rem);color:var(--text-secondary);margin-bottom:40px;line-height:1.8;max-width:480px;animation:fadeInUp .7s ease .2s both}
-.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;animation:fadeInUp .7s ease .3s both}
-.hero-visual{position:relative;animation:fadeInRight .9s ease .2s both}
-.hero-visual img{width:100%;border-radius:var(--radius-xl);box-shadow:var(--shadow-xl);animation:heroImgFloat 6s ease-in-out infinite}
-.hero-visual::before{content:'';position:absolute;inset:-12px;border:2px solid var(--border);border-radius:calc(var(--radius-xl) + 8px);z-index:-1;animation:heroAccentSpin 20s linear infinite}
-.hero-visual::after{content:'';position:absolute;bottom:-20px;right:-20px;width:80px;height:80px;background:var(--gradient-green);border-radius:50%;opacity:.12;filter:blur(20px)}
-.hero-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:72px;padding-top:40px;border-top:1px solid var(--border);animation:fadeInUp .7s ease .45s both;grid-column:1/-1}
-.hero-metric{text-align:center;padding:16px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);transition:all .3s;box-shadow:var(--shadow-sm)}
-.hero-metric:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:rgba(22,134,74,.15)}
-.hero-metric-value{font-family:var(--font-display);font-size:clamp(1.6rem,2.5vw,2.2rem);font-weight:400;color:var(--text-hero);letter-spacing:-.5px}
+.hero h1{font-family:var(--font-display);font-size:clamp(2.6rem,5.5vw,4.5rem);font-weight:400;line-height:1.05;color:var(--text-hero);margin-bottom:24px;letter-spacing:-1px;text-transform:capitalize;perspective:600px}
+.hero h1 .word{display:inline-block;opacity:0;transform:translateY(40px) rotateX(-15deg);animation:wordReveal .8s cubic-bezier(.16,1,.3,1) forwards}
+.hero h1 .word:nth-child(1){animation-delay:.15s}
+.hero h1 .word:nth-child(2){animation-delay:.25s}
+.hero h1 .word:nth-child(3){animation-delay:.35s}
+.hero h1 .word:nth-child(4){animation-delay:.45s}
+.hero h1 .word:nth-child(5){animation-delay:.55s}
+.hero h1 .word.em-word{font-style:italic;color:var(--green-deep)}
+.hero h1 .em-underline{position:relative;display:inline-block}
+.hero h1 .em-underline::after{content:'';position:absolute;bottom:4px;left:0;right:0;height:3px;background:var(--gradient-green);border-radius:3px;opacity:.35;transform:scaleX(0);transform-origin:left;animation:lineGrow .8s cubic-bezier(.16,1,.3,1) .9s forwards}
+.hero-sub{font-size:clamp(1rem,1.6vw,1.1rem);color:var(--text-secondary);margin-bottom:40px;line-height:1.8;max-width:480px;opacity:0;animation:fadeInUp .7s ease .6s both}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;opacity:0;animation:fadeInUp .7s ease .7s both}
+
+/* ===== HERO VISUAL (CSS-only animated cards) ===== */
+.hero-visual{position:relative;min-height:420px;perspective:900px;opacity:0;animation:heroImgReveal 1.2s cubic-bezier(.16,1,.3,1) .35s both}
+.hero-visual-inner{position:relative;width:100%;height:420px}
+.hero-visual-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:320px;height:320px;background:radial-gradient(circle,rgba(22,134,74,.08),rgba(11,29,58,.03),transparent 70%);border-radius:50%;animation:glowBreath 4s ease-in-out infinite}
+.hero-visual-ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);border:1.5px solid rgba(22,134,74,.08);border-radius:50%;animation:ringGrow 6s ease-in-out infinite}
+.hero-visual-ring:nth-child(2){width:240px;height:240px}
+.hero-visual-ring:nth-child(3){width:340px;height:340px;animation-delay:.6s}
+.hero-visual-ring:nth-child(4){width:400px;height:400px;animation-delay:1.2s;border-style:dashed;border-color:rgba(11,29,58,.05)}
+
+/* Floating message cards */
+.float-card{position:absolute;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-md);padding:14px 18px;box-shadow:var(--shadow-lg);z-index:3;opacity:0;animation:cardFloat 1s cubic-bezier(.34,1.56,.64,1) forwards}
+.float-card-1{top:8%;left:12%;animation-delay:.5s}
+.float-card-2{top:42%;right:4%;animation-delay:.8s}
+.float-card-3{bottom:14%;left:18%;animation-delay:1.1s}
+.float-card-4{top:18%;right:18%;animation-delay:1.4s}
+.float-card.live .float-card-1{animation:cardFloat 1s cubic-bezier(.34,1.56,.64,1) .5s both,floatUpDown 4s ease-in-out 1.5s infinite}
+.float-card-1.live{animation:cardFloat 1s cubic-bezier(.34,1.56,.64,1) .5s both,floatUpDown 4s ease-in-out 1.5s infinite}
+.float-card-2.live{animation:cardFloat 1s cubic-bezier(.34,1.56,.64,1) .8s both,floatUpDown 5s ease-in-out 1.8s infinite}
+.float-card-3.live{animation:cardFloat 1s cubic-bezier(.34,1.56,.64,1) 1.1s both,floatUpDown 4.5s ease-in-out 2.1s infinite}
+.float-card-4.live{animation:cardFloat 1s cubic-bezier(.34,1.56,.64,1) 1.4s both,floatUpDown 3.8s ease-in-out 2.4s infinite}
+.fc-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.85rem;margin-bottom:8px}
+.fc-icon.email-icon{background:rgba(96,165,250,.1);color:#3B82F6}
+.fc-icon.linkedin-icon{background:rgba(22,134,74,.08);color:var(--green-deep)}
+.fc-icon.lead-icon{background:rgba(245,158,11,.08);color:#F59E0B}
+.fc-icon.check-icon{background:rgba(34,197,94,.1);color:var(--green-accent)}
+.fc-title{font-weight:700;font-size:.75rem;color:var(--text-hero);margin-bottom:2px}
+.fc-sub{font-size:.65rem;color:var(--text-muted);line-height:1.4}
+.fc-bar{height:3px;border-radius:3px;background:var(--bg-warm);margin-top:8px;overflow:hidden}
+.fc-bar-fill{height:100%;border-radius:3px;background:var(--gradient-green)}
+.fc-bar-fill.anim{animation:barFill 2s ease-in-out 2s both}
+.fc-stat{display:flex;align-items:baseline;gap:4px;margin-top:6px}
+.fc-stat-val{font-family:var(--font-display);font-size:1.3rem;color:var(--green-deep)}
+.fc-stat-label{font-size:.6rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px}
+
+/* Orbiting dots */
+.orbit-dot{position:absolute;width:6px;height:6px;border-radius:50%;top:50%;left:50%}
+.orbit-dot-1{background:var(--green-accent);animation:orbit1 8s linear infinite;opacity:.5}
+.orbit-dot-2{background:var(--navy);animation:orbit2 12s linear infinite;opacity:.3;width:4px;height:4px}
+.orbit-dot-3{background:rgba(96,165,250,.6);animation:orbit3 10s linear infinite reverse;opacity:.4;width:5px;height:5px}
+
+@keyframes orbit1{from{transform:rotate(0deg) translateX(160px) rotate(0deg)}to{transform:rotate(360deg) translateX(160px) rotate(-360deg)}}
+@keyframes orbit2{from{transform:rotate(0deg) translateX(200px) rotate(0deg)}to{transform:rotate(360deg) translateX(200px) rotate(-360deg)}}
+@keyframes orbit3{from{transform:rotate(0deg) translateX(130px) rotate(0deg)}to{transform:rotate(360deg) translateX(130px) rotate(-360deg)}}
+@keyframes cardFloat{from{opacity:0;transform:scale(.7) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes barFill{from{width:0}to{width:78%}}
+
+.hero-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:72px;padding-top:40px;border-top:1px solid var(--border);grid-column:1/-1}
+.hero-metric{text-align:center;padding:20px 16px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-md);transition:all .4s cubic-bezier(.16,1,.3,1);box-shadow:var(--shadow-sm);cursor:default;position:relative;overflow:hidden}
+.hero-metric::before{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(22,134,74,.04),transparent);transition:left .8s ease}
+.hero-metric:hover::before{left:140%}
+.hero-metric:hover{transform:translateY(-6px) scale(1.03);box-shadow:var(--shadow-lg);border-color:rgba(22,134,74,.15)}
+.hero-metric-value{font-family:var(--font-display);font-size:clamp(1.6rem,2.5vw,2.2rem);font-weight:400;color:var(--text-hero)}
 .hero-metric-label{font-size:.72rem;color:var(--text-muted);margin-top:4px;font-weight:500;letter-spacing:.5px;text-transform:uppercase}
 
-/* PAIN */
+/* ===== PAIN ===== */
 .pain-section{background:var(--bg-warm);position:relative}
 .pain-section::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
 .pain-header{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;margin-bottom:56px}
 .pain-header-right{color:var(--text-secondary);font-size:.95rem;line-height:1.75;max-width:440px}
 .pain-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.pain-card{padding:32px 28px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);transition:all .5s cubic-bezier(.16,1,.3,1)}
-.pain-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:transparent}
-.pain-num{font-family:var(--font-display);font-size:3rem;color:var(--text-faint);line-height:1;margin-bottom:20px;font-style:italic}
+.pain-card{padding:32px 28px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);transition:all .5s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden}
+.pain-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,#ef4444,#f97316);transform:scaleX(0);transform-origin:left;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.pain-card:hover::before{transform:scaleX(1)}
+.pain-card:hover{box-shadow:var(--shadow-xl);border-color:transparent}
+.pain-num{font-family:var(--font-display);font-size:3rem;color:var(--text-faint);line-height:1;margin-bottom:20px;font-style:italic;transition:color .4s}
+.pain-card:hover .pain-num{color:rgba(239,68,68,.3)}
 .pain-card h3{font-family:var(--font-body);font-size:1rem;font-weight:700;margin-bottom:10px;color:var(--text-hero);line-height:1.4}
 .pain-card p{font-size:.88rem;color:var(--text-secondary);line-height:1.65}
 
-/* SERVICES - EXPANDED */
+/* ===== SERVICES ===== */
 .services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px;margin-top:56px}
-.service-card{padding:48px 40px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-xl);transition:all .5s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden}
-.service-card::after{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--gradient-brand);transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.service-card{padding:48px 40px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-xl);transition:all .5s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden}
+.service-card::after{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--gradient-brand);transform:scaleX(0);transform-origin:left;transition:transform .6s cubic-bezier(.16,1,.3,1)}
 .service-card:hover::after{transform:scaleX(1)}
-.service-card:hover{box-shadow:var(--shadow-xl);border-color:transparent;transform:translateY(-4px)}
+.service-card:hover{box-shadow:var(--shadow-xl);border-color:transparent}
 .service-card h3{font-family:var(--font-display);font-size:1.7rem;font-weight:400;color:var(--text-hero);margin-bottom:12px}
 .service-card>p{color:var(--text-secondary);font-size:.92rem;margin-bottom:28px;line-height:1.7}
-.service-features{display:flex;flex-direction:column;gap:14px}
-.service-feature{display:flex;gap:14px;align-items:flex-start;padding:18px 20px;background:var(--bg-warm);border:1px solid rgba(11,29,58,.04);border-radius:var(--radius-md);transition:all .3s}
-.service-feature:hover{border-color:var(--border-hover);transform:translateX(4px)}
-.service-feature-icon{width:36px;height:36px;border-radius:8px;background:var(--green-glow);border:1px solid rgba(22,134,74,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.9rem}
-.service-feature h4{font-weight:700;font-size:.88rem;margin-bottom:3px;color:var(--text-hero)}
-.service-feature p{font-size:.8rem;color:var(--text-secondary);line-height:1.55}
+.service-features{display:flex;flex-direction:column;gap:12px}
+.service-feature{display:flex;gap:14px;align-items:flex-start;padding:16px 18px;background:var(--bg-warm);border:1px solid rgba(11,29,58,.04);border-radius:var(--r-md);transition:all .4s cubic-bezier(.16,1,.3,1)}
+.service-feature:hover{border-color:var(--border-hover);transform:translateX(6px);background:var(--bg-card);box-shadow:var(--shadow-sm)}
+.sf-icon{width:36px;height:36px;border-radius:8px;background:var(--green-glow);border:1px solid rgba(22,134,74,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.9rem;box-shadow:0 2px 8px rgba(22,134,74,.06),inset 0 1px 2px rgba(255,255,255,.5);transition:transform .3s}
+.service-feature:hover .sf-icon{transform:scale(1.1) rotate(-5deg)}
+.service-feature h4{font-weight:700;font-size:.85rem;margin-bottom:3px;color:var(--text-hero)}
+.service-feature p{font-size:.78rem;color:var(--text-secondary);line-height:1.55}
 
-/* RESULTS */
+/* ===== RESULTS ===== */
 .results-section{background:var(--navy);color:#fff;position:relative;overflow:hidden}
 .results-section::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.03) 1px,transparent 1px);background-size:40px 40px}
+.results-orb{position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(22,134,74,.1),transparent 70%);border-radius:50%;top:20%;right:-10%;animation:orbDrift 10s ease-in-out infinite;z-index:0}
+.results-orb-2{position:absolute;width:350px;height:350px;background:radial-gradient(circle,rgba(96,165,250,.06),transparent 70%);border-radius:50%;bottom:10%;left:-5%;animation:orbDrift 12s ease-in-out infinite reverse;z-index:0}
 .results-section .section-label{color:rgba(29,168,92,.9)}.results-section .section-label::before{background:rgba(29,168,92,.6)}
 .results-section .section-title{color:#fff}.results-section .section-title em{color:var(--green-accent)}
 .results-section .section-subtitle{color:rgba(255,255,255,.55)}
 .results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:56px;position:relative;z-index:1}
-.result-card{padding:32px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius-lg);backdrop-filter:blur(8px);transition:all .4s}
-.result-card:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.12);transform:translateY(-4px)}
+.result-card{padding:32px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:var(--r-lg);backdrop-filter:blur(8px);transition:all .5s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden}
+.result-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.04),transparent);opacity:0;transition:opacity .4s}
+.result-card:hover::before{opacity:1}
+.result-card:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);box-shadow:0 16px 48px rgba(0,0,0,.2)}
 .result-type{display:inline-block;padding:4px 12px;font-size:.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border-radius:100px;margin-bottom:16px}
 .result-type.email{background:rgba(96,165,250,.15);color:#93C5FD}
 .result-type.linkedin{background:rgba(34,197,94,.15);color:#4ADE80}
@@ -154,197 +234,266 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text-body);ov
 .result-pipeline-value{font-family:var(--font-display);font-size:2rem;color:var(--green-accent)}
 .result-pipeline-label{font-size:.72rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px}
 
-/* COUNTERS */
+/* ===== COUNTERS ===== */
 .counters-strip{background:var(--bg-warm);padding:72px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
 .counter-row{display:grid;grid-template-columns:repeat(5,1fr);gap:24px}
-.counter-item{text-align:center;padding:20px;transition:transform .3s}
-.counter-item:hover{transform:scale(1.05)}
-.counter-value{font-family:var(--font-display);font-size:clamp(2.2rem,4vw,3.2rem);font-weight:400;color:var(--text-hero);letter-spacing:-.5px}
+.counter-item{text-align:center;padding:20px;transition:all .4s cubic-bezier(.16,1,.3,1);border-radius:var(--r-md)}
+.counter-item:hover{transform:scale(1.08);background:var(--bg-card);box-shadow:var(--shadow-md)}
+.counter-value{font-family:var(--font-display);font-size:clamp(2.2rem,4vw,3.2rem);font-weight:400;color:var(--text-hero)}
 .counter-label{font-size:.72rem;color:var(--text-muted);margin-top:6px;font-weight:500;text-transform:uppercase;letter-spacing:1.5px}
 
-/* LOGOS */
+/* ===== LOGOS (text-based) ===== */
 .logos-section{padding:56px 0;overflow:hidden}
 .logos-label{text-align:center;font-size:.72rem;color:var(--text-muted);letter-spacing:3px;text-transform:uppercase;margin-bottom:36px;font-weight:600}
 .logos-track-wrapper{position:relative;overflow:hidden;mask-image:linear-gradient(90deg,transparent 0%,black 10%,black 90%,transparent 100%);-webkit-mask-image:linear-gradient(90deg,transparent 0%,black 10%,black 90%,transparent 100%)}
-.logos-track{display:flex;gap:72px;animation:marquee 30s linear infinite;width:max-content;align-items:center}
-.logos-track img{height:32px;filter:grayscale(100%);opacity:.35;transition:all .4s;object-fit:contain}
-.logos-track img:hover{opacity:.7;filter:grayscale(0%)}
+.logos-track{display:flex;gap:48px;animation:marquee 25s linear infinite;width:max-content;align-items:center}
+.text-logo{font-family:var(--font-body);font-weight:800;font-size:1.1rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-faint);white-space:nowrap;padding:8px 24px;transition:all .5s cubic-bezier(.16,1,.3,1);user-select:none;opacity:.45}
+.text-logo:hover{opacity:.85;color:var(--navy);transform:scale(1.08)}
 
-/* TESTIMONIALS */
+/* ===== TESTIMONIALS ===== */
 .testimonials-section{background:var(--bg-warm)}
 .testimonials-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:56px}
-.testimonial-card{padding:40px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-xl);transition:all .5s cubic-bezier(.16,1,.3,1)}
-.testimonial-card:hover{box-shadow:var(--shadow-lg);border-color:transparent;transform:translateY(-4px)}
+.testimonial-card{padding:40px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-xl);transition:all .5s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden}
+.testimonial-card::before{content:'\201C';position:absolute;top:12px;right:24px;font-family:var(--font-display);font-size:5rem;color:rgba(22,134,74,.05);line-height:1;pointer-events:none;transition:color .3s}
+.testimonial-card:hover::before{color:rgba(22,134,74,.12)}
+.testimonial-card:hover{box-shadow:var(--shadow-xl);border-color:transparent}
 .testimonial-stars{display:flex;gap:3px;margin-bottom:20px;color:#F59E0B;font-size:.85rem}
-.testimonial-text{font-family:var(--font-display);font-size:1.05rem;color:var(--text-primary);line-height:1.65;margin-bottom:28px}
+.testimonial-text{font-family:var(--font-display);font-size:1.05rem;color:var(--text-primary);line-height:1.65;margin-bottom:28px;position:relative;z-index:1}
 .testimonial-author{display:flex;align-items:center;gap:14px;padding-top:20px;border-top:1px solid var(--border)}
 .testimonial-name{font-family:var(--font-body);font-weight:700;font-size:.9rem;color:var(--text-hero)}
 .testimonial-role{font-size:.78rem;color:var(--text-muted);margin-top:2px}
-.testimonial-linkedin{display:inline-flex;align-items:center;gap:4px;margin-top:4px;font-size:.7rem;color:var(--green-deep);font-weight:600;text-decoration:none}
+.testimonial-verified{display:inline-flex;align-items:center;gap:4px;margin-top:4px;font-size:.7rem;color:var(--green-deep);font-weight:600;text-decoration:none;transition:color .3s}
+.testimonial-verified:hover{color:var(--green-bright)}
 
-/* PRICING */
+/* ===== PRICING ===== */
 .pricing-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px;margin-top:56px}
-.pricing-card{padding:48px 40px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-xl);transition:all .5s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden}
+.pricing-card{padding:48px 40px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-xl);transition:all .5s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden}
 .pricing-card.featured{border:2px solid var(--navy);box-shadow:var(--shadow-lg)}
-.pricing-badge{position:absolute;top:24px;right:24px;padding:5px 14px;background:var(--navy);color:#fff;font-size:.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border-radius:100px}
-.pricing-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-xl)}
+.pricing-badge{position:absolute;top:24px;right:24px;padding:5px 14px;background:var(--navy);color:#fff;font-size:.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border-radius:100px;animation:badgeGlow 2.5s ease-in-out infinite}
+.pricing-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-xl)}
 .pricing-card h3{font-family:var(--font-display);font-size:1.7rem;color:var(--text-hero);margin-bottom:8px}
 .pricing-card>p{color:var(--text-secondary);font-size:.88rem;margin-bottom:32px}
 .pricing-models{display:flex;flex-direction:column;gap:14px;margin-bottom:36px}
-.pricing-model{padding:22px 24px;background:var(--bg-warm);border:1px solid rgba(11,29,58,.04);border-radius:var(--radius-md)}
+.pricing-model{padding:22px 24px;background:var(--bg-warm);border:1px solid rgba(11,29,58,.04);border-radius:var(--r-md);transition:all .3s}
+.pricing-model:hover{border-color:var(--border-hover);box-shadow:var(--shadow-sm);transform:translateX(4px)}
 .pricing-model-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--green-deep);margin-bottom:6px}
 .pricing-model-price{font-family:var(--font-display);font-size:1.8rem;color:var(--text-hero)}
 .pricing-model-price small{font-family:var(--font-body);font-size:.8rem;font-weight:400;color:var(--text-muted)}
 .pricing-model-desc{font-size:.82rem;color:var(--text-secondary);margin-top:5px;line-height:1.6}
 .pricing-card .btn-primary,.pricing-card .btn-ghost{width:100%;justify-content:center}
 
-/* ABOUT */
+/* ===== ABOUT ===== */
 .about-section{background:var(--bg-warm)}
-.about-inner{display:grid;grid-template-columns:420px 1fr;gap:72px;align-items:center;margin-top:56px}
-.about-img-wrap{position:relative}
-.about-img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top;border-radius:var(--radius-xl);box-shadow:var(--shadow-lg)}
-.about-img-accent{position:absolute;bottom:-16px;right:-16px;width:100%;height:100%;border:2px solid var(--border);border-radius:var(--radius-xl);z-index:-1}
-.about-img-dot{position:absolute;top:-24px;left:-24px;width:64px;height:64px;background:var(--gradient-green);border-radius:50%;opacity:.15}
+.about-inner{display:grid;grid-template-columns:380px 1fr;gap:72px;align-items:center;margin-top:56px}
+.about-card{position:relative;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-xl);padding:48px 36px;text-align:center;box-shadow:var(--shadow-lg);transition:all .6s cubic-bezier(.16,1,.3,1)}
+.about-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-xl)}
+.about-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--gradient-brand);border-radius:var(--r-xl) var(--r-xl) 0 0}
+.about-avatar{width:110px;height:110px;border-radius:50%;background:var(--gradient-brand);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-family:var(--font-display);font-size:2.6rem;color:#fff;font-style:italic;box-shadow:0 8px 32px rgba(11,29,58,.2);position:relative}
+.about-avatar::after{content:'';position:absolute;inset:-6px;border:2px solid rgba(22,134,74,.15);border-radius:50%;animation:dotPulse 4s ease-in-out infinite}
+.about-card-name{font-family:var(--font-display);font-size:1.6rem;color:var(--text-hero);margin-bottom:4px}
+.about-card-role{color:var(--green-deep);font-weight:600;font-size:.9rem;margin-bottom:16px}
+.about-card-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:var(--green-glow);border:1px solid rgba(22,134,74,.1);border-radius:100px;font-size:.72rem;font-weight:700;color:var(--green-deep);text-transform:uppercase;letter-spacing:1px}
 .about-name{font-family:var(--font-display);font-size:2.2rem;color:var(--text-hero);margin-bottom:4px}
 .about-role{color:var(--green-deep);font-weight:600;margin-bottom:24px;font-size:1rem}
 .about-bio{color:var(--text-body);font-size:.98rem;line-height:1.85;margin-bottom:36px}
 .about-creds{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-.cred{padding:20px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);transition:all .3s}
-.cred:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.cred{padding:20px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-md);transition:all .4s cubic-bezier(.16,1,.3,1)}
+.cred:hover{transform:translateY(-4px) scale(1.02);box-shadow:var(--shadow-md);border-color:rgba(22,134,74,.15)}
 .cred-value{font-family:var(--font-display);font-size:1.5rem;color:var(--text-hero)}
 .cred-label{font-size:.75rem;color:var(--text-muted);margin-top:3px;text-transform:uppercase;letter-spacing:.5px;font-weight:500}
 
-/* FAQ */
+/* ===== FAQ ===== */
 .faq-section{background:var(--bg-warm)}
 .faq-inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;margin-top:56px}
 .faq-left{position:sticky;top:120px}
 .faq-left h3{font-family:var(--font-display);font-size:1.8rem;color:var(--text-hero);margin-bottom:16px;line-height:1.3}
 .faq-left p{color:var(--text-secondary);font-size:.95rem;line-height:1.7;margin-bottom:28px}
 .faq-list{display:flex;flex-direction:column;gap:10px}
-.faq-item{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;transition:all .3s}
-.faq-item:hover{border-color:var(--border-hover)}
-.faq-item.active{border-color:rgba(22,134,74,.2)}
+.faq-item{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;transition:all .4s cubic-bezier(.16,1,.3,1)}
+.faq-item:hover{border-color:var(--border-hover);transform:translateX(4px)}
+.faq-item.active{border-color:rgba(22,134,74,.2);box-shadow:0 0 0 3px rgba(22,134,74,.06),var(--shadow-md)}
 .faq-question{display:flex;align-items:center;justify-content:space-between;padding:24px 28px;cursor:pointer;font-family:var(--font-body);font-weight:600;font-size:.95rem;color:var(--text-hero);background:none;border:none;width:100%;text-align:left;gap:16px}
-.faq-icon{width:28px;height:28px;border-radius:50%;background:var(--bg-warm);display:flex;align-items:center;justify-content:center;font-size:1rem;color:var(--green-deep);transition:all .4s;flex-shrink:0}
-.faq-item.active .faq-icon{transform:rotate(45deg);background:var(--green-glow)}
-.faq-answer{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.16,1,.3,1)}
+.faq-icon{width:28px;height:28px;border-radius:50%;background:var(--bg-warm);display:flex;align-items:center;justify-content:center;font-size:1rem;color:var(--green-deep);transition:all .4s cubic-bezier(.16,1,.3,1);flex-shrink:0}
+.faq-item.active .faq-icon{transform:rotate(45deg);background:var(--green-glow);box-shadow:0 0 12px rgba(22,134,74,.15)}
+.faq-answer{max-height:0;overflow:hidden;transition:max-height .6s cubic-bezier(.16,1,.3,1)}
 .faq-item.active .faq-answer{max-height:600px}
 .faq-answer-inner{padding:0 28px 28px;color:var(--text-body);font-size:.9rem;line-height:1.75}
 .faq-answer-inner strong{color:var(--text-hero)}
 
-/* CTA */
+/* ===== CTA ===== */
 .cta-section{text-align:center;background:var(--navy);color:#fff;position:relative;overflow:hidden}
-.cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(22,134,74,.12) 0%,transparent 70%)}
+.cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(22,134,74,.15) 0%,transparent 70%);animation:ctaPulse 5s ease-in-out infinite alternate}
+.cta-rings{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.cta-ring{position:absolute;border:1px solid rgba(255,255,255,.04);border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%)}
+.cta-ring:nth-child(1){width:300px;height:300px;animation:ringGrow 6s ease-in-out infinite}
+.cta-ring:nth-child(2){width:500px;height:500px;animation:ringGrow 6s ease-in-out infinite .8s}
+.cta-ring:nth-child(3){width:700px;height:700px;animation:ringGrow 6s ease-in-out infinite 1.6s}
 .cta-section .container{position:relative;z-index:2}
 .cta-section h2{font-family:var(--font-display);font-size:clamp(2.2rem,5vw,3.6rem);color:#fff;margin-bottom:16px}
 .cta-section h2 em{font-style:italic;color:var(--green-accent)}
 .cta-section p{color:rgba(255,255,255,.55);font-size:1.05rem;margin-bottom:40px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.75}
 .cta-section .btn-primary{background:var(--gradient-green);font-size:1.05rem;padding:18px 42px}
 
-/* FOOTER */
+/* ===== FOOTER ===== */
 .footer{padding:48px 0 36px;background:var(--navy);border-top:1px solid rgba(255,255,255,.06)}
 .footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px}
 .footer-left{display:flex;flex-direction:column;gap:8px}
-.footer-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-.footer-logo img{height:26px;filter:brightness(0) invert(1) sepia(1) saturate(0)}
-.footer-logo-text{font-family:var(--font-body);font-weight:800;font-size:1rem;color:#fff;letter-spacing:2px;text-transform:uppercase}
 .footer-tagline{font-size:.82rem;color:rgba(255,255,255,.4)}
 .footer-email a{color:rgba(255,255,255,.55);text-decoration:none;font-size:.88rem;transition:color .3s}
 .footer-email a:hover{color:var(--green-accent)}
 .footer-socials{display:flex;gap:10px}
-.footer-social{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border:1px solid rgba(255,255,255,.1);border-radius:10px;color:rgba(255,255,255,.5);text-decoration:none;font-size:.85rem;font-weight:600;transition:all .3s}
-.footer-social:hover{border-color:var(--green-accent);color:var(--green-accent);background:rgba(34,197,94,.08)}
+.footer-social{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border:1px solid rgba(255,255,255,.1);border-radius:10px;color:rgba(255,255,255,.5);text-decoration:none;font-size:.85rem;font-weight:600;transition:all .4s cubic-bezier(.16,1,.3,1)}
+.footer-social:hover{border-color:var(--green-accent);color:var(--green-accent);background:rgba(34,197,94,.08);transform:translateY(-3px)}
 .footer-right{font-size:.78rem;color:rgba(255,255,255,.3)}
 
-/* ANIMATIONS */
+/* ===== KEYFRAMES ===== */
 @keyframes fadeInUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeInRight{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+@keyframes fadeInDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes wordReveal{to{opacity:1;transform:translateY(0) rotateX(0)}}
+@keyframes lineGrow{to{transform:scaleX(1)}}
+@keyframes heroImgReveal{from{opacity:0;transform:perspective(900px) rotateY(-12deg) scale(.92)}to{opacity:1;transform:perspective(900px) rotateY(0) scale(1)}}
 @keyframes gentleFloat{0%,100%{transform:translate(0,0)}50%{transform:translate(15px,-15px)}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-@keyframes heroImgFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-@keyframes heroAccentSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-@keyframes slideInLeft{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
-@keyframes slideInRight{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
-@keyframes scaleIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
-.reveal{opacity:0;transform:translateY(36px);transition:all .9s cubic-bezier(.16,1,.3,1)}
-.reveal.visible{opacity:1;transform:translateY(0)}
-.reveal-left{opacity:0;transform:translateX(-36px);transition:all .9s cubic-bezier(.16,1,.3,1)}
-.reveal-left.visible{opacity:1;transform:translateX(0)}
-.reveal-right{opacity:0;transform:translateX(36px);transition:all .9s cubic-bezier(.16,1,.3,1)}
-.reveal-right.visible{opacity:1;transform:translateX(0)}
-.reveal-scale{opacity:0;transform:scale(.92);transition:all .9s cubic-bezier(.16,1,.3,1)}
-.reveal-scale.visible{opacity:1;transform:scale(1)}
-.reveal-delay-1{transition-delay:.08s}.reveal-delay-2{transition-delay:.16s}
-.reveal-delay-3{transition-delay:.24s}.reveal-delay-4{transition-delay:.32s}
-.reveal-delay-5{transition-delay:.4s}
+@keyframes glowBreath{0%,100%{opacity:.6;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.15)}}
+@keyframes lineSweep{0%{transform:translateY(-50px)}50%{transform:translateY(50px)}100%{transform:translateY(-50px)}}
+@keyframes orbDrift{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-30px,25px) scale(1.06)}}
+@keyframes floatUpDown{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes badgeGlow{0%,100%{box-shadow:0 0 0 0 rgba(11,29,58,.15)}50%{box-shadow:0 0 0 6px rgba(11,29,58,0)}}
+@keyframes dotPulse{0%,100%{transform:scale(1);opacity:.15}50%{transform:scale(1.2);opacity:.25}}
+@keyframes ctaPulse{from{opacity:.7}to{opacity:1}}
+@keyframes ringGrow{0%,100%{opacity:.03;transform:translate(-50%,-50%) scale(1)}50%{opacity:.08;transform:translate(-50%,-50%) scale(1.08)}}
 
-/* RESPONSIVE */
+/* SCROLL REVEAL SYSTEM */
+.reveal{opacity:0;transform:translateY(40px);transition:all 1s cubic-bezier(.16,1,.3,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-50px);transition:all 1s cubic-bezier(.16,1,.3,1)}
+.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(50px);transition:all 1s cubic-bezier(.16,1,.3,1)}
+.reveal-right.visible{opacity:1;transform:translateX(0)}
+.reveal-scale{opacity:0;transform:scale(.85);transition:all 1s cubic-bezier(.16,1,.3,1)}
+.reveal-scale.visible{opacity:1;transform:scale(1)}
+.reveal-rotate{opacity:0;transform:perspective(600px) rotateX(10deg) translateY(30px);transition:all 1s cubic-bezier(.16,1,.3,1)}
+.reveal-rotate.visible{opacity:1;transform:perspective(600px) rotateX(0) translateY(0)}
+.d1{transition-delay:.06s}.d2{transition-delay:.12s}.d3{transition-delay:.18s}.d4{transition-delay:.24s}.d5{transition-delay:.3s}.d6{transition-delay:.36s}
+
+/* ===== RESPONSIVE ===== */
 @media(max-width:1024px){
-.hero-inner{grid-template-columns:1fr;text-align:center}
-.hero-content{max-width:100%}.hero-sub{max-width:100%}
-.hero-ctas{justify-content:center}
-.hero-visual{max-width:480px;margin:0 auto}
+.hero-inner{grid-template-columns:1fr;text-align:center}.hero-content{max-width:100%}.hero-sub{max-width:100%}
+.hero-ctas{justify-content:center}.hero-visual{max-width:480px;margin:0 auto}
 .hero-metrics{grid-template-columns:repeat(2,1fr)}
-.pain-grid{grid-template-columns:repeat(2,1fr)}
-.pain-header{grid-template-columns:1fr}
-.results-grid{grid-template-columns:repeat(2,1fr)}
-.about-inner{grid-template-columns:320px 1fr;gap:48px}
-.counter-row{grid-template-columns:repeat(3,1fr)}
-.faq-inner{grid-template-columns:1fr}
+.pain-grid{grid-template-columns:repeat(2,1fr)}.pain-header{grid-template-columns:1fr}
+.results-grid{grid-template-columns:repeat(2,1fr)}.about-inner{grid-template-columns:300px 1fr;gap:48px}
+.counter-row{grid-template-columns:repeat(3,1fr)}.faq-inner{grid-template-columns:1fr}
 .faq-left{position:static;text-align:center}
 }
 @media(max-width:768px){
 .nav-links{display:none;position:fixed;inset:0;background:rgba(250,250,248,.98);backdrop-filter:blur(20px);flex-direction:column;align-items:center;justify-content:center;gap:32px;z-index:999}
 .nav-links.open{display:flex}.nav-links a{font-size:1.2rem;color:var(--text-hero)}
+.nav-links a::after{display:none}
 .nav-toggle{display:flex}
 .pain-grid,.services-grid,.testimonials-grid,.pricing-grid,.results-grid{grid-template-columns:1fr}
 .about-inner{grid-template-columns:1fr;text-align:center}
-.about-img-wrap{max-width:300px;margin:0 auto}.about-img-accent{display:none}
-.about-creds{grid-template-columns:repeat(2,1fr)}
-.counter-row{grid-template-columns:repeat(2,1fr);gap:20px}
+.about-card{max-width:300px;margin:0 auto}
+.about-creds{grid-template-columns:repeat(2,1fr)}.counter-row{grid-template-columns:repeat(2,1fr);gap:20px}
 .hero-metrics{grid-template-columns:repeat(2,1fr);gap:12px}
 .hero-ctas{flex-direction:column;align-items:stretch}
+.hero-visual-inner{height:340px}
+.float-card-4{display:none}
 .footer-inner{flex-direction:column;align-items:flex-start}
+.cursor-dot,.cursor-glow{display:none}
 }
-@media(max-width:480px){.about-creds{grid-template-columns:1fr}.result-stats{grid-template-columns:1fr}.counter-row{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.about-creds{grid-template-columns:1fr}.result-stats{grid-template-columns:1fr}.counter-row{grid-template-columns:repeat(2,1fr)}.hero-visual-inner{height:280px}.float-card{padding:10px 14px}.fc-icon{width:26px;height:26px;font-size:.7rem}}
 @media(max-width:250px){html{font-size:11px}}
 @media(min-width:2000px){:root{--container:1400px}html{font-size:18px}}
+
+@media(prefers-reduced-motion:reduce){
+*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+.hero h1 .word{opacity:1;transform:none}
+.hero-badge,.hero-sub,.hero-ctas,.hero-visual{opacity:1}
+.reveal,.reveal-left,.reveal-right,.reveal-scale,.reveal-rotate{opacity:1;transform:none}
+.float-card{opacity:1}
+}
 </style>
 </head>
 <body>
 
+<!-- Cursor effects -->
+<div class="cursor-glow" id="cursorGlow"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+<!-- Scroll progress -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- NAVBAR -->
 <nav class="navbar" id="navbar"><div class="nav-inner">
-<a href="#" class="nav-logo"><img src="ChatGPT_Image_Feb_1__2026__02_28_56_AM.png" alt="Expandry"><span class="nav-logo-text">Expandry</span></a>
+<a href="#home" class="logo-mark"><span class="logo-icon">EX</span><span class="logo-text">Expandry</span></a>
 <ul class="nav-links" id="navLinks">
 <li><a href="#home">Home</a></li><li><a href="#services">Services</a></li><li><a href="#results">Results</a></li>
-<li><a href="#testimonials">Testimonials</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#about">About</a></li>
+<li><a href="#testimonials">Testimonials</a></li><li><a href="#pricing">Pricing</a></li>
 <li><a href="#book" class="nav-cta">Book a Call</a></li>
 </ul>
 <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
 </div></nav>
 
-<!-- HERO with image -->
+<!-- HERO -->
 <section class="hero section" id="home">
-<div class="hero-bg-shapes"><div class="hero-shape hero-shape-1"></div><div class="hero-shape hero-shape-2"></div><div class="hero-shape hero-shape-3"></div><div class="hero-dots"></div></div>
+<div class="hero-bg"><div class="hero-shape hero-shape-1"></div><div class="hero-shape hero-shape-2"></div><div class="hero-shape hero-shape-3"></div><div class="hero-dots"></div><div class="hero-line"></div></div>
 <div class="container"><div class="hero-inner">
 <div class="hero-content">
 <div class="hero-badge"><span class="dot"></span>Building Predictable Outbound Systems</div>
-<h1>Outbound Systems For <em>Predictable Growth.</em></h1>
+<h1><span class="word">Outbound</span> <span class="word">Systems</span> <span class="word">For</span> <span class="word em-word"><span class="em-underline">Predictable</span></span> <span class="word em-word">Growth.</span></h1>
 <p class="hero-sub">Skip the spray-and-pray outreach. We build cold email &amp; LinkedIn systems that fill your calendar with qualified meetings — predictably, every month.</p>
 <div class="hero-ctas">
-<a href="#book" class="btn-primary">Book a Call <span class="arrow">→</span></a>
-<a href="#results" class="btn-ghost">See Our Results</a>
+<a href="#book" class="btn-primary magnetic">Book a Call <span class="arrow">→</span></a>
+<a href="#results" class="btn-ghost magnetic">See Our Results</a>
 </div>
 </div>
+
+<!-- CSS-ONLY HERO VISUAL -->
 <div class="hero-visual">
-<img src="ChatGPT_Image_Feb_1__2026__02_35_57_AM.png" alt="Expandry — Outbound systems for predictable growth">
+<div class="hero-visual-inner">
+<div class="hero-visual-glow"></div>
+<div class="hero-visual-ring"></div>
+<div class="hero-visual-ring"></div>
+<div class="hero-visual-ring"></div>
+<div class="orbit-dot orbit-dot-1"></div>
+<div class="orbit-dot orbit-dot-2"></div>
+<div class="orbit-dot orbit-dot-3"></div>
+
+<div class="float-card float-card-1 live">
+<div class="fc-icon email-icon">✉</div>
+<div class="fc-title">Email Sequence Sent</div>
+<div class="fc-sub">3-step follow-up · 1,200 leads</div>
+<div class="fc-bar"><div class="fc-bar-fill anim" style="width:78%"></div></div>
 </div>
+
+<div class="float-card float-card-2 live">
+<div class="fc-icon linkedin-icon">in</div>
+<div class="fc-title">LinkedIn Connection</div>
+<div class="fc-sub">Decision-maker accepted</div>
+<div class="fc-stat"><span class="fc-stat-val">41</span><span class="fc-stat-label">Positive leads</span></div>
+</div>
+
+<div class="float-card float-card-3 live">
+<div class="fc-icon check-icon">✓</div>
+<div class="fc-title">Meeting Booked</div>
+<div class="fc-sub">VP of Sales · Tuesday 2pm</div>
+</div>
+
+<div class="float-card float-card-4 live">
+<div class="fc-icon lead-icon">★</div>
+<div class="fc-title">Pipeline Update</div>
+<div class="fc-stat"><span class="fc-stat-val">$122K</span><span class="fc-stat-label">This month</span></div>
+</div>
+</div>
+</div>
+
 <div class="hero-metrics">
 <div class="hero-metric reveal-scale"><div class="hero-metric-value" data-count="150" data-suffix="+">0</div><div class="hero-metric-label">Campaigns Delivered</div></div>
-<div class="hero-metric reveal-scale reveal-delay-1"><div class="hero-metric-value" data-count="5" data-prefix="$" data-suffix="M+">0</div><div class="hero-metric-label">Pipeline Generated</div></div>
-<div class="hero-metric reveal-scale reveal-delay-2"><div class="hero-metric-value" data-count="6" data-suffix="+ Years">0</div><div class="hero-metric-label">In Outbound</div></div>
-<div class="hero-metric reveal-scale reveal-delay-3"><div class="hero-metric-value" data-count="20" data-suffix="+">0</div><div class="hero-metric-label">Countries Served</div></div>
+<div class="hero-metric reveal-scale d1"><div class="hero-metric-value" data-count="5" data-prefix="$" data-suffix="M+">0</div><div class="hero-metric-label">Pipeline Generated</div></div>
+<div class="hero-metric reveal-scale d2"><div class="hero-metric-value" data-count="6" data-suffix="+ Years">0</div><div class="hero-metric-label">In Outbound</div></div>
+<div class="hero-metric reveal-scale d3"><div class="hero-metric-value" data-count="20" data-suffix="+">0</div><div class="hero-metric-label">Countries Served</div></div>
 </div>
 </div></div>
 </section>
@@ -356,123 +505,105 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text-body);ov
 <div class="pain-header-right reveal-right">Most businesses are stuck in one of these traps — burning budget, losing time, and watching pipeline slip away. If any of these hit home, you're in the right place.</div>
 </div>
 <div class="pain-grid">
-<div class="pain-card reveal reveal-delay-1"><div class="pain-num">01</div><h3>Not Enough Leads Or Meetings</h3><p>Your pipeline is unpredictable. Some months are great, others are dry. You're always wondering where the next client will come from.</p></div>
-<div class="pain-card reveal reveal-delay-2"><div class="pain-num">02</div><h3>Meeting Cost Is Too High</h3><p>Spending thousands on ads and tools — but the cost per qualified meeting makes the math impossible to justify.</p></div>
-<div class="pain-card reveal reveal-delay-3"><div class="pain-num">03</div><h3>Over-Reliance On Referrals</h3><p>Referrals are great when they come — but you can't scale a business on "maybe someone will recommend us."</p></div>
-<div class="pain-card reveal reveal-delay-4"><div class="pain-num">04</div><h3>Burned By Other Agencies</h3><p>They promised the moon, took your money, sent blast emails, and delivered nothing. You're skeptical — we get it.</p></div>
+<div class="pain-card reveal-rotate d1 tilt-card"><div class="pain-num">01</div><h3>Not Enough Leads Or Meetings</h3><p>Your pipeline is unpredictable. Some months are great, others are dry. You're always wondering where the next client will come from.</p></div>
+<div class="pain-card reveal-rotate d2 tilt-card"><div class="pain-num">02</div><h3>Meeting Cost Is Too High</h3><p>Spending thousands on ads and tools — but the cost per qualified meeting makes the math impossible to justify.</p></div>
+<div class="pain-card reveal-rotate d3 tilt-card"><div class="pain-num">03</div><h3>Over-Reliance On Referrals</h3><p>Referrals are great when they come — but you can't scale a business on "maybe someone will recommend us."</p></div>
+<div class="pain-card reveal-rotate d4 tilt-card"><div class="pain-num">04</div><h3>Burned By Other Agencies</h3><p>They promised the moon, took your money, sent blast emails, and delivered nothing. You're skeptical — we get it.</p></div>
 </div>
 </div></section>
 
-<!-- SERVICES - Expanded, no pricing -->
+<!-- SERVICES -->
 <section class="section" id="services"><div class="container">
 <div class="reveal"><span class="section-label">What We Do</span><h2 class="section-title">Two Systems. <em>One Goal.</em></h2><p class="section-subtitle">We match the right outbound channel to where your audience actually lives — and build a system that delivers qualified meetings on repeat.</p></div>
 <div class="services-grid">
-<div class="service-card reveal-left">
-<div class="icon-3d" style="margin-bottom:28px"><svg viewBox="0 0 24 24" fill="none" stroke="#0F6B3A" stroke-width="2" stroke-linecap="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
+<div class="service-card reveal-left tilt-card">
+<div class="icon-3d" style="margin-bottom:28px">💬</div>
 <h3>LinkedIn Outreach</h3>
 <p>For businesses whose audience is active on LinkedIn. 100% manual — no bots, no automation tools, no extensions. That's why it works and consistently outperforms automated approaches.</p>
 <div class="service-features">
-<div class="service-feature"><div class="service-feature-icon">🎯</div><div><h4>ICP Research &amp; Validation</h4><p>We identify and validate your ideal prospects before a single message is sent — no guessing, no wasted connections.</p></div></div>
-<div class="service-feature"><div class="service-feature-icon">✍️</div><div><h4>Hyper-Personalized Messaging</h4><p>Every connection request and follow-up is hand-crafted. No templates, no mail merge — real conversations that get responses.</p></div></div>
-<div class="service-feature"><div class="service-feature-icon">👤</div><div><h4>Profile Optimization</h4><p>We transform your LinkedIn profile into a conversion machine — headline, banner, about section, and featured content aligned to attract your ICP.</p></div></div>
-<div class="service-feature"><div class="service-feature-icon">📊</div><div><h4>Conversation Management</h4><p>We don't just start conversations — we manage them. From first reply to booking the meeting on your calendar.</p></div></div>
-<div class="service-feature"><div class="service-feature-icon">📈</div><div><h4>Weekly Reporting</h4><p>Transparent performance metrics every week — connection rate, response rate, meetings booked, pipeline value. No black boxes.</p></div></div>
-</div>
-</div>
-<div class="service-card reveal-right">
-<div class="icon-3d" style="margin-bottom:28px"><svg viewBox="0 0 24 24" fill="none" stroke="#0F6B3A" stroke-width="2" stroke-linecap="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div>
+<div class="service-feature"><div class="sf-icon">🎯</div><div><h4>ICP Research &amp; Validation</h4><p>We identify and validate your ideal prospects before a single message is sent — no guessing, no wasted connections.</p></div></div>
+<div class="service-feature"><div class="sf-icon">✍️</div><div><h4>Hyper-Personalized Messaging</h4><p>Every connection request and follow-up is hand-crafted. No templates — real conversations that get responses.</p></div></div>
+<div class="service-feature"><div class="sf-icon">👤</div><div><h4>Profile Optimization</h4><p>Your LinkedIn profile becomes a conversion machine — headline, banner, about, and featured content aligned to attract your ICP.</p></div></div>
+<div class="service-feature"><div class="sf-icon">💬</div><div><h4>Conversation Management</h4><p>We don't just start conversations — we manage them from first reply to booking the meeting on your calendar.</p></div></div>
+<div class="service-feature"><div class="sf-icon">📊</div><div><h4>Weekly Reporting</h4><p>Transparent metrics every week — connection rate, response rate, meetings booked, pipeline value.</p></div></div>
+</div></div>
+<div class="service-card reveal-right tilt-card">
+<div class="icon-3d" style="margin-bottom:28px">✉️</div>
 <h3>Email Outreach</h3>
 <p>For businesses whose audience isn't on LinkedIn. Highly cost-effective cold email systems that land in primary inboxes and start real, qualified conversations at scale.</p>
 <div class="service-features">
-<div class="service-feature"><div class="service-feature-icon">🏗️</div><div><h4>Full Infrastructure Setup</h4><p>Domain purchasing, DNS configuration (SPF, DKIM, DMARC), mailbox creation, and proper warmup sequences — done right from day one.</p></div></div>
-<div class="service-feature"><div class="service-feature-icon">🧹</div><div><h4>Lead List Building &amp; Enrichment</h4><p>Using Clay, Apollo, ZoomInfo, and 10+ enrichment tools to build laser-targeted, verified lead lists tailored to your exact ICP.</p></div></div>
-<div class="service-feature"><div class="service-feature-icon">✉️</div><div><h4>Copywriting &amp; Sequence Design</h4><p>Multi-step email sequences with personalized hooks, pattern interrupts, and CTAs proven to generate replies — not just opens.</p></div></div>
-<div class="service-feature"><div class="service-feature-icon">🔬</div><div><h4>A/B Testing &amp; Optimization</h4><p>Continuous testing of subject lines, copy angles, send times, and targeting — we optimize until the numbers sing.</p></div></div>
-<div class="service-feature"><div class="service-feature-icon">🛡️</div><div><h4>Deliverability Monitoring</h4><p>Real-time inbox placement tracking across Smartlead, Instantly, and custom monitoring to keep you out of spam — permanently.</p></div></div>
-</div>
-</div>
-</div>
-</div></section>
+<div class="service-feature"><div class="sf-icon">🏗️</div><div><h4>Full Infrastructure Setup</h4><p>Domain purchasing, DNS configuration (SPF, DKIM, DMARC), mailbox creation, and proper warmup — done right from day one.</p></div></div>
+<div class="service-feature"><div class="sf-icon">🔍</div><div><h4>Lead List Building &amp; Enrichment</h4><p>Using Clay, Apollo, ZoomInfo, and 10+ tools to build laser-targeted, verified lead lists tailored to your exact ICP.</p></div></div>
+<div class="service-feature"><div class="sf-icon">✉️</div><div><h4>Copywriting &amp; Sequence Design</h4><p>Multi-step email sequences with personalized hooks and CTAs proven to generate replies — not just opens.</p></div></div>
+<div class="service-feature"><div class="sf-icon">🔬</div><div><h4>A/B Testing &amp; Optimization</h4><p>Continuous testing of subject lines, copy angles, send times — we optimize until the numbers sing.</p></div></div>
+<div class="service-feature"><div class="sf-icon">🛡️</div><div><h4>Deliverability Monitoring</h4><p>Real-time inbox placement tracking to keep you out of spam — permanently.</p></div></div>
+</div></div>
+</div></div></section>
 
-<!-- RESULTS + IMARA -->
-<section class="results-section section" id="results"><div class="container">
+<!-- RESULTS -->
+<section class="results-section section" id="results"><div class="results-orb"></div><div class="results-orb-2"></div><div class="container">
 <div class="reveal"><span class="section-label">Proof</span><h2 class="section-title">Real Campaigns. <em>Real Pipeline.</em></h2><p class="section-subtitle">These aren't hypotheticals. Actual results from clients who trusted Expandry.</p></div>
 <div class="results-grid">
-<div class="result-card reveal"><span class="result-type email">Email Outreach</span><div class="result-client">SM Posting</div>
-<div class="result-stats"><div><div class="result-stat-value" data-count="21288">0</div><div class="result-stat-label">Leads Contacted</div></div><div><div class="result-stat-value" data-count="68" data-suffix="%+">0</div><div class="result-stat-label">Open Rate</div></div><div><div class="result-stat-value" data-count="9.95" data-suffix="%" data-decimal="true">0</div><div class="result-stat-label">Response Rate</div></div></div>
-<div class="result-pipeline"><div class="result-pipeline-value">$37,800</div><div class="result-pipeline-label">Pipeline · 1 Month</div></div></div>
-
-<div class="result-card reveal reveal-delay-1"><span class="result-type email">Email Outreach</span><div class="result-client">Tanden Consultancy</div>
-<div class="result-stats"><div><div class="result-stat-value" data-count="1100">0</div><div class="result-stat-label">Leads Contacted</div></div><div><div class="result-stat-value" data-count="64" data-suffix="%">0</div><div class="result-stat-label">Open Rate</div></div><div><div class="result-stat-value" data-count="10.15" data-suffix="%" data-decimal="true">0</div><div class="result-stat-label">Response Rate</div></div></div>
-<div class="result-pipeline"><div class="result-pipeline-value">$32,300</div><div class="result-pipeline-label">Qualified Pipeline</div></div></div>
-
-<div class="result-card reveal reveal-delay-2"><span class="result-type email">Email Outreach</span><div class="result-client">Careerify (SaaS)</div>
-<div class="result-stats" style="margin-bottom:0"><div style="grid-column:1/-1"><div class="result-stat-label">2nd month results</div></div></div>
-<div class="result-pipeline"><div class="result-pipeline-value">$66,000</div><div class="result-pipeline-label">Pipeline · Month 2</div></div></div>
-
-<div class="result-card reveal"><span class="result-type linkedin">LinkedIn Outreach</span><div class="result-client">AUDIENCEX</div>
-<div class="result-stats" style="grid-template-columns:1fr"><div><div class="result-stat-value" data-count="41">0</div><div class="result-stat-label">Positive Leads</div></div></div>
-<div class="result-pipeline"><div class="result-pipeline-value">$122,000</div><div class="result-pipeline-label">Pipeline · 1st Month</div></div></div>
-
-<div class="result-card reveal reveal-delay-1"><span class="result-type linkedin">LinkedIn Outreach</span><div class="result-client">Healing Voyages</div>
-<div class="result-pipeline" style="border:none;padding:0"><div class="result-pipeline-value">$28,000</div><div class="result-pipeline-label">Pipeline · 1st Month</div></div></div>
-
-<div class="result-card reveal reveal-delay-2"><span class="result-type linkedin">LinkedIn Outreach</span><div class="result-client">IMARA</div>
-<div class="result-pipeline" style="border:none;padding:0"><div class="result-pipeline-value">$56,000</div><div class="result-pipeline-label">Pipeline · 1st Month</div></div></div>
-</div>
-</div></section>
-
-<!-- COUNTERS with $5M -->
-<section class="counters-strip"><div class="container"><div class="counter-row">
-<div class="counter-item reveal"><div class="counter-value" data-count="150" data-suffix="+">0</div><div class="counter-label">Campaigns</div></div>
-<div class="counter-item reveal reveal-delay-1"><div class="counter-value" data-count="5" data-prefix="$" data-suffix="M+">0</div><div class="counter-label">Pipeline Generated</div></div>
-<div class="counter-item reveal reveal-delay-2"><div class="counter-value" data-count="6" data-suffix="+ Years">0</div><div class="counter-label">In Outbound</div></div>
-<div class="counter-item reveal reveal-delay-3"><div class="counter-value" data-count="20" data-suffix="+">0</div><div class="counter-label">Countries Served</div></div>
-<div class="counter-item reveal reveal-delay-4"><div class="counter-value" data-count="68" data-suffix="%+">0</div><div class="counter-label">Avg. Open Rate</div></div>
+<div class="result-card reveal-rotate d1 tilt-card"><span class="result-type email">Email Outreach</span><div class="result-client">SM Posting</div><div class="result-stats"><div><div class="result-stat-value" data-count="21288">0</div><div class="result-stat-label">Leads Contacted</div></div><div><div class="result-stat-value" data-count="68" data-suffix="%+">0</div><div class="result-stat-label">Open Rate</div></div><div><div class="result-stat-value" data-count="9.95" data-suffix="%" data-decimal="true">0</div><div class="result-stat-label">Response Rate</div></div></div><div class="result-pipeline"><div class="result-pipeline-value">$37,800</div><div class="result-pipeline-label">Pipeline · 1 Month</div></div></div>
+<div class="result-card reveal-rotate d2 tilt-card"><span class="result-type email">Email Outreach</span><div class="result-client">Tanden Consultancy</div><div class="result-stats"><div><div class="result-stat-value" data-count="1100">0</div><div class="result-stat-label">Leads Contacted</div></div><div><div class="result-stat-value" data-count="64" data-suffix="%">0</div><div class="result-stat-label">Open Rate</div></div><div><div class="result-stat-value" data-count="10.15" data-suffix="%" data-decimal="true">0</div><div class="result-stat-label">Response Rate</div></div></div><div class="result-pipeline"><div class="result-pipeline-value">$32,300</div><div class="result-pipeline-label">Qualified Pipeline</div></div></div>
+<div class="result-card reveal-rotate d3 tilt-card"><span class="result-type email">Email Outreach</span><div class="result-client">Careerify (SaaS)</div><div class="result-stats" style="margin-bottom:0"><div style="grid-column:1/-1"><div class="result-stat-label">2nd month results</div></div></div><div class="result-pipeline"><div class="result-pipeline-value">$66,000</div><div class="result-pipeline-label">Pipeline · Month 2</div></div></div>
+<div class="result-card reveal-rotate d1 tilt-card"><span class="result-type linkedin">LinkedIn Outreach</span><div class="result-client">AUDIENCEX</div><div class="result-stats" style="grid-template-columns:1fr"><div><div class="result-stat-value" data-count="41">0</div><div class="result-stat-label">Positive Leads</div></div></div><div class="result-pipeline"><div class="result-pipeline-value">$122,000</div><div class="result-pipeline-label">Pipeline · 1st Month</div></div></div>
+<div class="result-card reveal-rotate d2 tilt-card"><span class="result-type linkedin">LinkedIn Outreach</span><div class="result-client">Healing Voyages</div><div class="result-pipeline" style="border:none;padding:0"><div class="result-pipeline-value">$28,000</div><div class="result-pipeline-label">Pipeline · 1st Month</div></div></div>
+<div class="result-card reveal-rotate d3 tilt-card"><span class="result-type linkedin">LinkedIn Outreach</span><div class="result-client">IMARA</div><div class="result-pipeline" style="border:none;padding:0"><div class="result-pipeline-value">$56,000</div><div class="result-pipeline-label">Pipeline · 1st Month</div></div></div>
 </div></div></section>
 
-<!-- LOGOS -->
+<!-- COUNTERS -->
+<section class="counters-strip"><div class="container"><div class="counter-row">
+<div class="counter-item reveal-scale"><div class="counter-value" data-count="150" data-suffix="+">0</div><div class="counter-label">Campaigns</div></div>
+<div class="counter-item reveal-scale d1"><div class="counter-value" data-count="5" data-prefix="$" data-suffix="M+">0</div><div class="counter-label">Pipeline Generated</div></div>
+<div class="counter-item reveal-scale d2"><div class="counter-value" data-count="6" data-suffix="+ Years">0</div><div class="counter-label">In Outbound</div></div>
+<div class="counter-item reveal-scale d3"><div class="counter-value" data-count="20" data-suffix="+">0</div><div class="counter-label">Countries Served</div></div>
+<div class="counter-item reveal-scale d4"><div class="counter-value" data-count="68" data-suffix="%+">0</div><div class="counter-label">Avg. Open Rate</div></div>
+</div></div></section>
+
+<!-- LOGOS (text-based) -->
 <section class="logos-section"><div class="logos-label">Trusted by businesses worldwide</div>
 <div class="logos-track-wrapper"><div class="logos-track">
-<img src="https://audiencex.com/wp-content/uploads/2024/01/audiencex-logo-light.svg" alt="AUDIENCEX">
-<img src="https://www.careerify.io/careerify-logo.svg" alt="Careerify">
-<img src="https://iapwe.org/wp-content/uploads/2016/09/IAPWE-Logo-10.png" alt="IAPWE">
-<img src="https://www.biancalysette.com/cdn/shop/files/Asset_3.png?v=1679536244" alt="Bianca Lysette">
-<img src="https://images.squarespace-cdn.com/content/v1/5f5c0c9a76b2e055e992cd31/1599906543505-GN3AWMJXE7DK3MGTMYV7/HealingVoyages_Logo_Color.png" alt="Healing Voyages">
-<img src="https://www.d-doubleumedia.com/wp-content/uploads/2023/07/dwm-logo.png" alt="D-DoubleU Media">
-<img src="https://creative-donut.com/wp-content/uploads/2023/01/logo.png" alt="Creative Donut">
-<img src="https://audiencex.com/wp-content/uploads/2024/01/audiencex-logo-light.svg" alt="AUDIENCEX">
-<img src="https://www.careerify.io/careerify-logo.svg" alt="Careerify">
-<img src="https://iapwe.org/wp-content/uploads/2016/09/IAPWE-Logo-10.png" alt="IAPWE">
-<img src="https://www.biancalysette.com/cdn/shop/files/Asset_3.png?v=1679536244" alt="Bianca Lysette">
-<img src="https://images.squarespace-cdn.com/content/v1/5f5c0c9a76b2e055e992cd31/1599906543505-GN3AWMJXE7DK3MGTMYV7/HealingVoyages_Logo_Color.png" alt="Healing Voyages">
-<img src="https://www.d-doubleumedia.com/wp-content/uploads/2023/07/dwm-logo.png" alt="D-DoubleU Media">
-<img src="https://creative-donut.com/wp-content/uploads/2023/01/logo.png" alt="Creative Donut">
+<span class="text-logo">AudienceX</span>
+<span class="text-logo">Bianca Lysette</span>
+<span class="text-logo">Healing Voyages</span>
+<span class="text-logo">D-DoubleU Media</span>
+<span class="text-logo">Creative Donut</span>
+<span class="text-logo">Upwork</span>
+<span class="text-logo">IMARA</span>
+<span class="text-logo">Tanden Consultancy</span>
+<span class="text-logo">Careerify</span>
+<span class="text-logo">AudienceX</span>
+<span class="text-logo">Bianca Lysette</span>
+<span class="text-logo">Healing Voyages</span>
+<span class="text-logo">D-DoubleU Media</span>
+<span class="text-logo">Creative Donut</span>
+<span class="text-logo">Upwork</span>
+<span class="text-logo">IMARA</span>
+<span class="text-logo">Tanden Consultancy</span>
+<span class="text-logo">Careerify</span>
 </div></div></section>
 
-<!-- TESTIMONIALS - no initials -->
+<!-- TESTIMONIALS -->
 <section class="testimonials-section section" id="testimonials"><div class="container">
 <div class="reveal"><span class="section-label">Testimonials</span><h2 class="section-title">What Clients <em>Actually Say.</em></h2><p class="section-subtitle">Real words from real people. Every testimonial is verifiable on LinkedIn.</p></div>
 <div class="testimonials-grid">
-<div class="testimonial-card reveal">
+<div class="testimonial-card reveal-rotate d1 tilt-card">
 <div class="testimonial-stars">★ ★ ★ ★ ★</div>
 <p class="testimonial-text">Awadh has an impressive ability to understand the psychology of cold audiences, turning total strangers into genuine business opportunities. His strategic approach to cold outbound outreach is highly effective, consistently cutting through the digital noise to reach the right people.</p>
-<div class="testimonial-author"><div><div class="testimonial-name">Bianca Lysette</div><div class="testimonial-role">Identity &amp; Cash-Flow Mentor · Serial Entrepreneur</div><a href="#" class="testimonial-linkedin">✓ Verified on LinkedIn</a></div></div></div>
-
-<div class="testimonial-card reveal reveal-delay-1">
+<div class="testimonial-author"><div><div class="testimonial-name">Bianca Lysette</div><div class="testimonial-role">Identity &amp; Cash-Flow Mentor · Serial Entrepreneur</div><a href="#" class="testimonial-verified">✓ Verified on LinkedIn</a></div></div></div>
+<div class="testimonial-card reveal-rotate d2 tilt-card">
 <div class="testimonial-stars">★ ★ ★ ★ ★</div>
 <p class="testimonial-text">I have worked with Awadh for a very long time and would definitely recommend him! He has tons of knowledge in cold email and other outreach methods as well. Awadh is very professional and always gets his work done on time.</p>
-<div class="testimonial-author"><div><div class="testimonial-name">Shew Sroep Tanden</div><div class="testimonial-role">Exclusive Deal Sourcing · M&amp;A Firms</div><a href="#" class="testimonial-linkedin">✓ Verified on LinkedIn</a></div></div></div>
-
-<div class="testimonial-card reveal reveal-delay-2">
+<div class="testimonial-author"><div><div class="testimonial-name">Shew Sroep Tanden</div><div class="testimonial-role">Exclusive Deal Sourcing · M&amp;A Firms</div><a href="#" class="testimonial-verified">✓ Verified on LinkedIn</a></div></div></div>
+<div class="testimonial-card reveal-rotate d3 tilt-card">
 <div class="testimonial-stars">★ ★ ★ ★ ★</div>
 <p class="testimonial-text">Awadh is a professional and is very knowledgeable on anything basically. He helped us set up outreach flows, generate leads and follow up with potential leads. Would recommend him to anyone.</p>
-<div class="testimonial-author"><div><div class="testimonial-name">Dennis Willeboordse</div><div class="testimonial-role">Performance Creatives · Ecommerce Brands</div><a href="#" class="testimonial-linkedin">✓ Verified on LinkedIn</a></div></div></div>
-
-<div class="testimonial-card reveal reveal-delay-3">
+<div class="testimonial-author"><div><div class="testimonial-name">Dennis Willeboordse</div><div class="testimonial-role">Performance Creatives · Ecommerce Brands</div><a href="#" class="testimonial-verified">✓ Verified on LinkedIn</a></div></div></div>
+<div class="testimonial-card reveal-rotate d4 tilt-card">
 <div class="testimonial-stars">★ ★ ★ ★ ★</div>
 <p class="testimonial-text">Awadh is really a professional person to work with. He is very good in personalization which eventually helps in business development! His way of doing LinkedIn Outreach is truly commendable!</p>
-<div class="testimonial-author"><div><div class="testimonial-name">Una Gordic</div><div class="testimonial-role">Career Strategist · Mental Health Coach</div><a href="#" class="testimonial-linkedin">✓ Verified on LinkedIn</a></div></div></div>
+<div class="testimonial-author"><div><div class="testimonial-name">Una Gordic</div><div class="testimonial-role">Career Strategist · Mental Health Coach</div><a href="#" class="testimonial-verified">✓ Verified on LinkedIn</a></div></div></div>
 </div>
 </div></section>
 
@@ -480,111 +611,149 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text-body);ov
 <section class="section" id="pricing"><div class="container">
 <div class="reveal"><span class="section-label">Pricing</span><h2 class="section-title">Transparent <em>Pricing.</em></h2><p class="section-subtitle">No hidden fees. No long-term contracts. Pick the service and model that fits.</p></div>
 <div class="pricing-grid">
-<div class="pricing-card featured reveal-left"><div class="pricing-badge">Popular</div>
-<div class="icon-3d" style="margin-bottom:20px"><svg viewBox="0 0 24 24" fill="none" stroke="#0F6B3A" stroke-width="2" stroke-linecap="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
+<div class="pricing-card featured reveal-left tilt-card"><div class="pricing-badge">Popular</div>
+<div class="icon-3d" style="margin-bottom:20px">💬</div>
 <h3>LinkedIn Outreach</h3><p>100% manual. No bots. No automation tools.</p>
 <div class="pricing-models">
 <div class="pricing-model"><div class="pricing-model-label">Flat Monthly</div><div class="pricing-model-price">$1,500 <small>/month</small></div><div class="pricing-model-desc">Full end-to-end management. Profile optimization, ICP targeting, messaging, conversation management.</div></div>
 <div class="pricing-model"><div class="pricing-model-label">Setup + Commission</div><div class="pricing-model-price">$600 <small>one-time</small></div><div class="pricing-model-desc">One-time setup + commission per positive lead. Lower upfront risk, performance-aligned.</div></div>
-</div><a href="#book" class="btn-primary">Book a Call <span class="arrow">→</span></a></div>
-
-<div class="pricing-card reveal-right">
-<div class="icon-3d" style="margin-bottom:20px"><svg viewBox="0 0 24 24" fill="none" stroke="#0F6B3A" stroke-width="2" stroke-linecap="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div>
+</div><a href="#book" class="btn-primary magnetic">Book a Call <span class="arrow">→</span></a></div>
+<div class="pricing-card reveal-right tilt-card">
+<div class="icon-3d" style="margin-bottom:20px">✉️</div>
 <h3>Email Outreach</h3><p>Cost-effective cold email systems that convert.</p>
 <div class="pricing-models">
 <div class="pricing-model"><div class="pricing-model-label">Managed Service</div><div class="pricing-model-price">$400–$1,200 <small>/month</small></div><div class="pricing-model-desc">Based on sending capacity. Domain setup, warmup, copywriting, sending, ongoing optimization.</div></div>
 <div class="pricing-model"><div class="pricing-model-label">Build &amp; Train</div><div class="pricing-model-price">$600 <small>one-time</small></div><div class="pricing-model-desc">We build the entire funnel, run it for 1 month, train you or your team to manage it.</div></div>
-</div><a href="#book" class="btn-ghost">Book a Call</a></div>
+</div><a href="#book" class="btn-ghost magnetic">Book a Call</a></div>
 </div>
 </div></section>
 
-<!-- ABOUT -->
-<section class="about-section section" id="about"><div class="container">
-<div class="reveal"><span class="section-label">The Founder</span><h2 class="section-title">The Person Behind <em>Expandry.</em></h2></div>
-<div class="about-inner">
-<div class="about-img-wrap reveal-left"><img src="awadh-profile.jpg" alt="Awadh Saleh — Founder of Expandry" class="about-img"><div class="about-img-accent"></div><div class="about-img-dot"></div></div>
-<div class="reveal-right"><h3 class="about-name">Awadh Saleh</h3><p class="about-role">Founder, Expandry</p>
-<p class="about-bio">I've spent the last 6+ years deep in the trenches of outbound — building cold email and LinkedIn systems that don't just send messages, but start real conversations. With over 150 campaigns delivered across 20+ countries, I've seen what works and what doesn't. Most outbound fails because people scale volume before fixing their ICP and messaging. Expandry exists to do the opposite: we get the foundation right first, then scale what's already working.</p>
-<div class="about-creds">
-<div class="cred"><div class="cred-value">6+ Years</div><div class="cred-label">In Outbound</div></div>
-<div class="cred"><div class="cred-value">150+</div><div class="cred-label">Campaigns Delivered</div></div>
-<div class="cred"><div class="cred-value">Top Rated</div><div class="cred-label">Upwork · Since 2021</div></div>
-<div class="cred"><div class="cred-value">20+</div><div class="cred-label">Countries Served</div></div>
-</div></div>
-</div>
-</div></section>
 
-<!-- FAQ - side by side layout -->
-<section class="faq-section section" id="faq"><div class="container">
-<div class="faq-inner">
-<div class="faq-left reveal-left">
-<span class="section-label">FAQ</span>
-<h3>Got Questions?<br>We've Got <em>Answers.</em></h3>
-<p>Everything you need to know before working with Expandry. Still have questions? Book a call — we're happy to chat.</p>
-<a href="#book" class="btn-ghost">Book a Call</a>
-</div>
+<!-- FAQ -->
+<section class="faq-section section" id="faq"><div class="container"><div class="faq-inner">
+<div class="faq-left reveal-left"><span class="section-label">FAQ</span><h3>Got Questions?<br>We've Got <em>Answers.</em></h3><p>Everything you need to know before working with Expandry. Still have questions? Book a call — we're happy to chat.</p><a href="#book" class="btn-ghost magnetic">Book a Call</a></div>
 <div class="faq-list">
-<div class="faq-item reveal"><button class="faq-question"><span>How quickly will I see results?</span><span class="faq-icon">+</span></button><div class="faq-answer"><div class="faq-answer-inner">For <strong>LinkedIn campaigns</strong>, you'll start seeing positive responses in your very first month. We connect directly with decision-makers in real-time conversations.<br><br>For <strong>Email campaigns</strong>, expect results within the first 45 days — accounting for domain warmup, testing, and optimization.</div></div></div>
-<div class="faq-item reveal reveal-delay-1"><button class="faq-question"><span>What industries do you work with?</span><span class="faq-icon">+</span></button><div class="faq-answer"><div class="faq-answer-inner">Any B2B business that needs qualified appointments. Our core clients include Coaches &amp; Consultants, B2B service providers, SaaS companies, and Marketing &amp; Advertising Agencies. We also work with real estate, financial services, IT staffing, legal services, healthcare B2B, HR &amp; recruiting, management consulting, and more.</div></div></div>
-<div class="faq-item reveal reveal-delay-2"><button class="faq-question"><span>What tools do you use?</span><span class="faq-icon">+</span></button><div class="faq-answer"><div class="faq-answer-inner"><strong>LinkedIn:</strong> Not a single automation tool. 100% manual outreach — no bots, no extensions, no risk to your account. That's exactly why it outperforms.<br><br><strong>Email:</strong> Industry-leading tools including Smartlead, Instantly, Lemlist, Woodpecker, and Mailshake for sending. For data enrichment: Clay, Apollo.io, ZoomInfo, Hunter.io, Snov.io, RocketReach, Lusha, Clearbit, UpLead, FindThatLead, and Skrapp — selected based on your targeting needs.</div></div></div>
-<div class="faq-item reveal reveal-delay-3"><button class="faq-question"><span>What if I don't get results?</span><span class="faq-icon">+</span></button><div class="faq-answer"><div class="faq-answer-inner">In 6+ years and 150+ campaigns, that hasn't happened. But if it does — you get <strong>1 full month of free service</strong>. We stand behind our work. No fine print, no excuses.</div></div></div>
-</div>
-</div>
-</div></section>
+<div class="faq-item reveal d1"><button class="faq-question"><span>How quickly will I see results?</span><span class="faq-icon">+</span></button><div class="faq-answer"><div class="faq-answer-inner">For <strong>LinkedIn campaigns</strong>, you'll start seeing positive responses in your very first month. We connect directly with decision-makers in real-time conversations.<br><br>For <strong>Email campaigns</strong>, expect results within the first 45 days — accounting for domain warmup, testing, and optimization.</div></div></div>
+<div class="faq-item reveal d2"><button class="faq-question"><span>What industries do you work with?</span><span class="faq-icon">+</span></button><div class="faq-answer"><div class="faq-answer-inner">Any B2B business that needs qualified appointments. Our core clients include Coaches &amp; Consultants, B2B service providers, SaaS companies, and Marketing &amp; Advertising Agencies. We also work with real estate, financial services, IT staffing, legal services, healthcare B2B, HR &amp; recruiting, management consulting, and more.</div></div></div>
+<div class="faq-item reveal d3"><button class="faq-question"><span>What tools do you use?</span><span class="faq-icon">+</span></button><div class="faq-answer"><div class="faq-answer-inner"><strong>LinkedIn:</strong> Not a single automation tool. 100% manual outreach — no bots, no extensions, no risk to your account.<br><br><strong>Email:</strong> Smartlead, Instantly, Lemlist, Woodpecker, and Mailshake for sending. Clay, Apollo.io, ZoomInfo, Hunter.io, Snov.io, RocketReach, Lusha, Clearbit, UpLead, FindThatLead, and Skrapp for data enrichment.</div></div></div>
+<div class="faq-item reveal d4"><button class="faq-question"><span>What if I don't get results?</span><span class="faq-icon">+</span></button><div class="faq-answer"><div class="faq-answer-inner">In 6+ years and 150+ campaigns, that hasn't happened. But if it does — you get <strong>1 full month of free service</strong>. No fine print, no excuses.</div></div></div>
+</div></div></div></section>
 
 <!-- CTA -->
-<section class="cta-section section" id="book"><div class="container"><div class="reveal">
+<section class="cta-section section" id="book"><div class="cta-rings"><div class="cta-ring"></div><div class="cta-ring"></div><div class="cta-ring"></div></div><div class="container"><div class="reveal-scale">
 <span class="section-label" style="color:rgba(74,222,128,.8)">Ready?</span>
 <h2>Stop Guessing.<br><em>Start Growing.</em></h2>
 <p>Book a call and let's build your outbound system — the one that actually fills your calendar.</p>
-<a href="https://calendly.com" target="_blank" class="btn-primary">Book a Call <span class="arrow">→</span></a>
+<a href="https://calendly.com/awadhaslam42/quick-chit-chat" target="_blank" rel="noopener" class="btn-primary magnetic">Book a Call <span class="arrow">→</span></a>
 </div></div></section>
 
 <!-- FOOTER -->
 <footer class="footer"><div class="container"><div class="footer-inner">
 <div class="footer-left">
-<a href="#" class="footer-logo"><img src="ChatGPT_Image_Feb_1__2026__02_28_56_AM.png" alt="Expandry"><span class="footer-logo-text">Expandry</span></a>
+<a href="#home" class="logo-mark"><span class="logo-icon">EX</span><span class="logo-text">Expandry</span></a>
 <div class="footer-tagline">Building Predictable Outbound Systems</div>
-<div class="footer-email"><a href="mailto:awadh@teamexpandry.com">awadh@teamexpandry.com</a></div>
+<div class="footer-email"><a href="mailto:awadhs@expandry.co">awadhs@expandry.co</a></div>
 </div>
 <div class="footer-socials">
-<a href="#" class="footer-social" title="LinkedIn">in</a>
-<a href="#" class="footer-social" title="Twitter">𝕏</a>
-<a href="#" class="footer-social" title="Upwork">Up</a>
+<a href="https://www.linkedin.com/in/awadhs" class="footer-social" aria-label="LinkedIn" title="LinkedIn" target="_blank" rel="noopener">in</a>
+<a href="https://www.upwork.com/freelancers/~01293474a8580572a5?mp_source=share" class="footer-social" aria-label="Upwork" title="Upwork" target="_blank" rel="noopener">Up</a>
 </div>
 <div class="footer-right">&copy; 2026 Expandry. All rights reserved.</div>
 </div></div></footer>
 
-<!-- Structured Data for SEO -->
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"ProfessionalService","name":"Expandry","description":"Outbound systems for predictable growth. Cold email and LinkedIn outreach for B2B, SaaS, Coaches, Consultants, and Marketing Agencies.","founder":{"@type":"Person","name":"Awadh Saleh"},"email":"awadh@teamexpandry.com","areaServed":"Worldwide","serviceType":["Cold Email Outreach","LinkedIn Outreach","Lead Generation","Appointment Setting"]}
-</script>
+<!-- SEO Structured Data -->
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","name":"Expandry","description":"Outbound systems for predictable growth. Cold email and LinkedIn outreach for B2B, SaaS, Coaches, Consultants, and Marketing Agencies.","founder":{"@type":"Person","name":"Awadh Saleh"},"email":"awadhs@expandry.co","areaServed":"Worldwide","serviceType":["Cold Email Outreach","LinkedIn Outreach","Lead Generation","Appointment Setting"]}</script>
 
 <script>
-/* NAVBAR */
-const navbar=document.getElementById('navbar');
-window.addEventListener('scroll',()=>navbar.classList.toggle('scrolled',window.scrollY>60));
-const navToggle=document.getElementById('navToggle'),navLinks=document.getElementById('navLinks');
-navToggle.addEventListener('click',()=>{navLinks.classList.toggle('open');navToggle.classList.toggle('active')});
-navLinks.querySelectorAll('a').forEach(l=>l.addEventListener('click',()=>{navLinks.classList.remove('open');navToggle.classList.remove('active')}));
+(function(){
+'use strict';
+var prefersReduced=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
 
-/* SCROLL REVEAL - multiple directions */
-const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')}),{threshold:.08,rootMargin:'0px 0px -40px 0px'});
-document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale').forEach(el=>ro.observe(el));
+/* Scroll progress + navbar */
+var sp=document.getElementById('scrollProgress');
+var navbar=document.getElementById('navbar');
+window.addEventListener('scroll',function(){
+var h=document.documentElement;
+var p=h.scrollTop/(h.scrollHeight-h.clientHeight);
+sp.style.transform='scaleX('+p+')';
+navbar.classList.toggle('scrolled',window.scrollY>60);
+},{passive:true});
 
-/* ANIMATED COUNTERS */
-function animV(el){const t=parseFloat(el.dataset.count),s=el.dataset.suffix||'',p=el.dataset.prefix||'',d=el.dataset.decimal==='true',dur=2200,st=performance.now();function tick(n){const pr=Math.min((n-st)/dur,1),e=1-Math.pow(1-pr,4),v=e*t;el.textContent=p+(d?v.toFixed(2):Math.floor(v).toLocaleString())+s;if(pr<1)requestAnimationFrame(tick)}requestAnimationFrame(tick)}
-const co=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){animV(x.target);co.unobserve(x.target)}}),{threshold:.3});
-document.querySelectorAll('[data-count]').forEach(el=>co.observe(el));
+/* Cursor */
+var cDot=document.getElementById('cursorDot');
+var cGlow=document.getElementById('cursorGlow');
+if(!prefersReduced&&window.matchMedia('(pointer:fine)').matches){
+var mx=0,my=0,gx=0,gy=0;
+document.addEventListener('mousemove',function(e){
+mx=e.clientX;my=e.clientY;
+cDot.style.left=mx+'px';cDot.style.top=my+'px';
+cDot.classList.add('on');cGlow.classList.add('on');
+},{passive:true});
+document.addEventListener('mouseleave',function(){cDot.classList.remove('on');cGlow.classList.remove('on');});
+(function lerpGlow(){gx+=(mx-gx)*.07;gy+=(my-gy)*.07;cGlow.style.left=gx+'px';cGlow.style.top=gy+'px';requestAnimationFrame(lerpGlow);})();
+}
+
+/* Mobile nav */
+var navToggle=document.getElementById('navToggle');
+var navLinks=document.getElementById('navLinks');
+navToggle.addEventListener('click',function(){navLinks.classList.toggle('open');navToggle.classList.toggle('active');});
+navLinks.querySelectorAll('a').forEach(function(l){l.addEventListener('click',function(){navLinks.classList.remove('open');navToggle.classList.remove('active');});});
+
+/* Scroll reveal */
+var revealObs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.06,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale,.reveal-rotate').forEach(function(el){revealObs.observe(el);});
+
+/* Counters */
+function animCounter(el){
+var target=parseFloat(el.dataset.count);
+var suffix=el.dataset.suffix||'';
+var prefix=el.dataset.prefix||'';
+var isDecimal=el.dataset.decimal==='true';
+var duration=2400;var start=performance.now();
+function tick(now){var progress=Math.min((now-start)/duration,1);var ease=1-Math.pow(1-progress,4);var val=ease*target;el.textContent=prefix+(isDecimal?val.toFixed(2):Math.floor(val).toLocaleString())+suffix;if(progress<1)requestAnimationFrame(tick);}
+requestAnimationFrame(tick);
+}
+var counterObs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){animCounter(e.target);counterObs.unobserve(e.target);}});},{threshold:.3});
+document.querySelectorAll('[data-count]').forEach(function(el){counterObs.observe(el);});
 
 /* FAQ */
-document.querySelectorAll('.faq-question').forEach(b=>{b.addEventListener('click',()=>{const i=b.parentElement,a=i.classList.contains('active');document.querySelectorAll('.faq-item').forEach(x=>x.classList.remove('active'));if(!a)i.classList.add('active')})});
+document.querySelectorAll('.faq-question').forEach(function(btn){
+btn.addEventListener('click',function(){var item=btn.parentElement;var isActive=item.classList.contains('active');document.querySelectorAll('.faq-item').forEach(function(x){x.classList.remove('active');});if(!isActive)item.classList.add('active');});
+});
 
-/* SMOOTH SCROLL */
-document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t){window.scrollTo({top:t.getBoundingClientRect().top+window.scrollY-80,behavior:'smooth'})}})});
+/* Smooth scroll */
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+a.addEventListener('click',function(e){e.preventDefault();var target=document.querySelector(a.getAttribute('href'));if(target)window.scrollTo({top:target.getBoundingClientRect().top+window.scrollY-80,behavior:'smooth'});});
+});
 
-/* PARALLAX on hero shapes */
-window.addEventListener('scroll',()=>{const s=window.scrollY;document.querySelector('.hero-shape-1').style.transform=`translate(${s*.02}px,${s*-.03}px)`;document.querySelector('.hero-shape-2').style.transform=`translate(${s*-.02}px,${s*.02}px)`;},{passive:true});
+/* Parallax hero */
+if(!prefersReduced){
+var shape1=document.querySelector('.hero-shape-1');var shape2=document.querySelector('.hero-shape-2');
+window.addEventListener('scroll',function(){var s=window.scrollY*.03;if(shape1)shape1.style.transform='translate('+s+'px,'+ -s+'px)';if(shape2)shape2.style.transform='translate('+ -s+'px,'+s+'px)';},{passive:true});
+}
+
+/* Magnetic buttons */
+if(!prefersReduced&&window.matchMedia('(pointer:fine)').matches){
+document.querySelectorAll('.magnetic').forEach(function(btn){
+btn.addEventListener('mousemove',function(e){var r=btn.getBoundingClientRect();var x=(e.clientX-r.left-r.width/2)*.18;var y=(e.clientY-r.top-r.height/2)*.18;btn.style.transform='translate('+x+'px,'+y+'px) scale(1.03)';});
+btn.addEventListener('mouseleave',function(){btn.style.transform='';});
+});
+}
+
+/* 3D tilt cards */
+if(!prefersReduced&&window.matchMedia('(pointer:fine)').matches){
+document.querySelectorAll('.tilt-card').forEach(function(card){
+card.addEventListener('mousemove',function(e){var r=card.getBoundingClientRect();var x=(e.clientX-r.left)/r.width-.5;var y=(e.clientY-r.top)/r.height-.5;card.style.transform='perspective(700px) rotateX('+ -y*5+'deg) rotateY('+x*5+'deg) translateY(-6px)';card.style.transition='transform .1s ease-out';});
+card.addEventListener('mouseleave',function(){card.style.transform='';card.style.transition='all .5s cubic-bezier(.16,1,.3,1)';});
+});
+}
+
+/* Active nav highlight */
+var sections=document.querySelectorAll('section[id]');
+var navA=document.querySelectorAll('.nav-links a:not(.nav-cta)');
+var navObs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var id=e.target.id;navA.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')==='#'+id);});}});},{threshold:.25,rootMargin:'-80px 0px -50% 0px'});
+sections.forEach(function(s){navObs.observe(s);});
+})();
 </script>
 </body>
 </html>
